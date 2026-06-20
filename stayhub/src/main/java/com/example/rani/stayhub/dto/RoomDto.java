@@ -1,7 +1,6 @@
 package com.example.rani.stayhub.dto;
 
 import java.math.BigDecimal;
-
 import lombok.Data;
 
 @Data
