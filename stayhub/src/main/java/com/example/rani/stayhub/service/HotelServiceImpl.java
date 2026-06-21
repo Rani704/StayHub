@@ -7,6 +7,8 @@ import com.example.rani.stayhub.entity.Hotel;
 import com.example.rani.stayhub.entity.Room;
 import com.example.rani.stayhub.exception.ResourceNotFoundException;
 import com.example.rani.stayhub.repository.HotelRepository;
+import com.example.rani.stayhub.repository.RoomRepository;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ public class HotelServiceImpl implements HotelService {
     private final HotelRepository hotelRepository;
     private final ModelMapper modelMapper;
     private final InventoryService inventoryService;
+    private final RoomRepository roomRepository;
 
     @Override
     public HotelDto createNewHotel(HotelDto hotelDto) {
@@ -58,10 +61,12 @@ public class HotelServiceImpl implements HotelService {
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + id));
 
-        hotelRepository.deleteById(id);
+      
         for (Room room : hotel.getRooms()) {
-            inventoryService.deleteFutureInventories(room);
+            inventoryService.deleteAllInventories(room);
+            roomRepository.deleteById(room.getId());
         }
+        hotelRepository.deleteById(id);
 
     }
 
