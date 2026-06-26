@@ -3,12 +3,15 @@ package com.example.rani.stayhub.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
+import com.example.rani.stayhub.entity.Hotel;
+import com.example.rani.stayhub.entity.Room;
+import com.example.rani.stayhub.entity.User;
 import com.example.rani.stayhub.entity.enums.BookingStatus;
 import lombok.Data;
 
 @Data
 public class BookingDto {
-     private Long id;
+    private Long id;
     private Integer roomsCount;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;

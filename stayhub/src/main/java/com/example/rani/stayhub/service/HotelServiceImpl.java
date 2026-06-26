@@ -1,8 +1,12 @@
 package com.example.rani.stayhub.service;
 
+import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import com.example.rani.stayhub.controller.HotelInfoDto;
 import com.example.rani.stayhub.dto.HotelDto;
+import com.example.rani.stayhub.dto.RoomDto;
 import com.example.rani.stayhub.entity.Hotel;
 import com.example.rani.stayhub.entity.Room;
 import com.example.rani.stayhub.exception.ResourceNotFoundException;
@@ -61,7 +65,6 @@ public class HotelServiceImpl implements HotelService {
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + id));
 
-      
         for (Room room : hotel.getRooms()) {
             inventoryService.deleteAllInventories(room);
             roomRepository.deleteById(room.getId());
@@ -79,11 +82,23 @@ public class HotelServiceImpl implements HotelService {
                 .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + hotelId));
 
         hotel.setActive(true);
-       
+
         // assuming only do it once
         for (Room room : hotel.getRooms()) {
             inventoryService.initializeRoomForAYear(room);
         }
-        
+
+    }
+
+    @Override
+    public HotelInfoDto getHotelInfoById(Long hotelId) {
+        Hotel hotel = hotelRepository
+                .findById(hotelId)
+                .orElseThrow(() -> new ResourceNotFoundException("Hotel not found with ID: " + hotelId));
+        List<RoomDto> rooms = hotel.getRooms()
+                .stream()
+                .map((element) -> modelMapper.map(element, RoomDto.class))
+                .toList();
+        return new HotelInfoDto(modelMapper.map(hotel, HotelDto.class), rooms);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.rani.stayhub.service;
 
+import com.example.rani.stayhub.controller.HotelInfoDto;
 import com.example.rani.stayhub.dto.HotelDto;
 
 
@@ -14,4 +15,6 @@ public interface HotelService {
     void deleteHotelById(Long id);
 
     void activateHotel(Long hotelId);
+
+    HotelInfoDto getHotelInfoById(Long hotelId);
 }
