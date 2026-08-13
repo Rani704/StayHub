@@ -53,5 +53,8 @@ public interface InventoryRepository extends JpaRepository<Inventory,Long>{
         @Param("endDate") LocalDate enDate,
         @Param("roomsCount") Integer roomsCount
     );
+
+    List<Inventory> findByHotelAndDateBetween(
+            Hotel hotel, LocalDate startDate, LocalDate endDate);
     
 }

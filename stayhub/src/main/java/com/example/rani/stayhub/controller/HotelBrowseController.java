@@ -3,6 +3,7 @@ package com.example.rani.stayhub.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.rani.stayhub.dto.HotelDto;
+import com.example.rani.stayhub.dto.HotelPriceDto;
 import com.example.rani.stayhub.dto.HotelSearchRequest;
 import com.example.rani.stayhub.service.HotelService;
 import com.example.rani.stayhub.service.InventoryService;
@@ -23,9 +24,9 @@ public class HotelBrowseController {
     private final HotelService hotelService;
 
     @GetMapping("/search")
-    public ResponseEntity<Page<HotelDto>> searchHotel(@RequestBody HotelSearchRequest hotelSearchRequest) {
+    public ResponseEntity<Page<HotelPriceDto>> searchHotel(@RequestBody HotelSearchRequest hotelSearchRequest) {
 
-        Page<HotelDto> page = inventoryService.searchHotels(hotelSearchRequest);
+        var page = inventoryService.searchHotels(hotelSearchRequest);
         return ResponseEntity.ok(page);
     }
 
