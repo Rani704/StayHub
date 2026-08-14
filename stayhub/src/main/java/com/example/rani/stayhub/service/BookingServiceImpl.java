@@ -7,6 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.example.rani.stayhub.dto.BookingDto;
@@ -20,6 +21,7 @@ import com.example.rani.stayhub.entity.Room;
 import com.example.rani.stayhub.entity.User;
 import com.example.rani.stayhub.entity.enums.BookingStatus;
 import com.example.rani.stayhub.exception.ResourceNotFoundException;
+import com.example.rani.stayhub.exception.UnAuthorisedException;
 import com.example.rani.stayhub.repository.BookingRepository;
 import com.example.rani.stayhub.repository.HotelRepository;
 import com.example.rani.stayhub.repository.InventoryRepository;
@@ -100,6 +102,10 @@ public class BookingServiceImpl implements BookingService {
                 log.info("Adding guests for booking with id: ", bookingId);
                 Booking booking = bookingRepository.findById(bookingId).orElseThrow(
                                 () -> new ResourceNotFoundException("Booking not found with id: " + bookingId));
+                User user = getCurrentUser();
+                if(user.equals(booking.getUser())){
+                    throw new UnAuthorisedException("Booking does not belong to this user with id:" + user.getId());  
+                }
                 if (hasBookingExpire(booking)) {
                         throw new IllegalStateException("Booking has already expired");
                 }
@@ -110,7 +116,7 @@ public class BookingServiceImpl implements BookingService {
 
                 for (GuestDto guestDto : guestDtos) {
                         Guest guest = modelMapper.map(guestDto,Guest.class);
-                        guest.setUser(getCurrentUser());
+                        guest.setUser(user);
                         guest = guestRepository.save(guest);
                         booking.getGuest().add(guest);
                 }
@@ -124,8 +130,6 @@ public class BookingServiceImpl implements BookingService {
         }
          
         public User getCurrentUser(){
-                User user = new User();
-                user.setId(1L);
-                return user;
+                return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         }
 }
