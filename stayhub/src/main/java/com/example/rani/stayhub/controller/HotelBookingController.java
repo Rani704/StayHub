@@ -5,13 +5,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.rani.stayhub.dto.BookingDto;
 import com.example.rani.stayhub.dto.BookingRequest;
 import com.example.rani.stayhub.dto.GuestDto;
 import com.example.rani.stayhub.service.BookingService;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 
