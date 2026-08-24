@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 public class OccupancyPricingStrategy implements PricingStrategy {
 
     private final PricingStrategy wrapped;
+    
     @Override
     public BigDecimal calculatedPrice(Inventory inventory) {
         BigDecimal price = wrapped.calculatedPrice(inventory);

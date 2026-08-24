@@ -1,5 +1,11 @@
 package com.example.rani.stayhub.entity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.example.rani.stayhub.entity.enums.Gender;
 
 import jakarta.persistence.Column;
@@ -18,8 +24,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Guest {
-
-    @Id
+ @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -33,6 +38,12 @@ public class Guest {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    private Integer age;
+    private LocalDate dateOfBirth;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
 }

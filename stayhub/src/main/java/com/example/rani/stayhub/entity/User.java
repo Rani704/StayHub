@@ -1,8 +1,11 @@
 package com.example.rani.stayhub.entity;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.example.rani.stayhub.entity.enums.Gender;
 import com.example.rani.stayhub.entity.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -38,6 +41,11 @@ public class User implements UserDetails {
 
     private String name;
 
+    private LocalDate dateOfBirth;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+    
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;

@@ -1,16 +1,14 @@
 package com.example.rani.stayhub.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import lombok.Data;
 
 @Data
-public class HotelSearchRequest {
-    private String city;
+public class UpdateInventoryRequestDto {
     private LocalDate startDate;
     private LocalDate endDate;
-    private Integer roomsCount;
-    private Integer page = 0;
-    private Integer size = 10;
- 
+    private BigDecimal surgeFactor;
+    private Boolean closed;
 }

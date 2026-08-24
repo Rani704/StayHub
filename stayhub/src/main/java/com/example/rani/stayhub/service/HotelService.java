@@ -1,11 +1,11 @@
 package com.example.rani.stayhub.service;
 
-import com.example.rani.stayhub.controller.HotelInfoDto;
+import java.util.List;
 import com.example.rani.stayhub.dto.HotelDto;
-
+import com.example.rani.stayhub.dto.HotelInfoDto;
+import com.example.rani.stayhub.dto.HotelInfoRequestDto;
 
 public interface HotelService {
-
     HotelDto createNewHotel(HotelDto hotelDto);
 
     HotelDto getHotelById(Long id);
@@ -16,5 +16,7 @@ public interface HotelService {
 
     void activateHotel(Long hotelId);
 
-    HotelInfoDto getHotelInfoById(Long hotelId);
+    HotelInfoDto getHotelInfoById(Long hotelId, HotelInfoRequestDto hotelInfoRequestDto);
+
+    List<HotelDto> getAllHotels();
 }
