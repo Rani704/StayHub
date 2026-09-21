@@ -1,6 +1,7 @@
 package com.example.rani.stayhub.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -73,8 +74,8 @@ public class Inventory {
 
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
 }

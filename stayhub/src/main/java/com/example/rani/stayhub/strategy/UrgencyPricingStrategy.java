@@ -12,8 +12,8 @@ public class UrgencyPricingStrategy implements PricingStrategy  {
     private final PricingStrategy wrapped;
 
     @Override
-    public BigDecimal calculatedPrice(Inventory inventory) {
-        BigDecimal price = wrapped.calculatedPrice(inventory);
+    public BigDecimal calculatePrice(Inventory inventory) {
+        BigDecimal price = wrapped.calculatePrice(inventory);
 
         LocalDate today = LocalDate.now();
         if (!inventory.getDate().isBefore(today) && inventory.getDate().isBefore(today.plusDays(7))) {

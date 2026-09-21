@@ -6,5 +6,5 @@ import com.example.rani.stayhub.entity.Inventory;
 
 public interface PricingStrategy {
 
-    BigDecimal calculatedPrice(Inventory inventory);
+    BigDecimal calculatePrice(Inventory inventory);
 }

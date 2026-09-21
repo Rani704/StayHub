@@ -2,13 +2,12 @@ package com.example.rani.stayhub.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.rani.stayhub.dto.HotelDto;
 import com.example.rani.stayhub.dto.HotelInfoDto;
-import com.example.rani.stayhub.dto.HotelPriceDto;
 import com.example.rani.stayhub.dto.HotelPriceResponseDto;
 import com.example.rani.stayhub.dto.HotelSearchRequest;
 import com.example.rani.stayhub.service.HotelService;
 import com.example.rani.stayhub.service.InventoryService;
+import com.example.rani.stayhub.dto.HotelInfoRequestDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -35,10 +34,12 @@ public class HotelBrowseController {
         return ResponseEntity.ok(page);
     }
 
-    @GetMapping("/{hotelId}/info")
-    @Operation(summary = "Get a hotel info by hotelId", tags = { "Browse Hotels" })
-    public ResponseEntity<HotelInfoDto> getHotelInfo(@PathVariable Long hotelId) {
-        return ResponseEntity.ok(hotelService.getHotelInfoById(hotelId, null));
-    }
+   @GetMapping("/{hotelId}/info")
+   @Operation(summary = "Get a hotel info by hotelId", tags = { "Browse Hotels" })
+    public ResponseEntity<HotelInfoDto> getHotelInfo(
+        @PathVariable Long hotelId,
+        @RequestBody HotelInfoRequestDto hotelInfoRequestDto) {
+    return ResponseEntity.ok(hotelService.getHotelInfoById(hotelId, hotelInfoRequestDto));
+}
 
 }

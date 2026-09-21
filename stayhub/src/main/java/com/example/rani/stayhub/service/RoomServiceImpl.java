@@ -87,7 +87,7 @@ public class RoomServiceImpl implements RoomService {
 
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(!user.equals(room.getHotel().getOwner())) {
-            throw new UnAuthorisedException("This user does not own this hotel with id"+ roomId);
+            throw new UnAuthorisedException("This user does not own this room with id"+ roomId);
         }       
        inventoryService.deleteAllInventories(room);
        roomRepository.deleteById(roomId);
